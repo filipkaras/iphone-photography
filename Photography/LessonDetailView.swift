@@ -25,10 +25,10 @@ struct LessonDetailView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.title)
                     .fontWeight(.bold)
-                    .padding(.vertical, 16)
+                    .padding(.vertical, K.UI.Space.normal)
                 Text(lesson.description)
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, K.UI.Space.normal)
             HStack {
                 Spacer()
                 Button {
@@ -38,8 +38,8 @@ struct LessonDetailView: View {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 22, weight: .medium))
                 }
-                .padding(.trailing, 16)
-                .padding(.top, 16)
+                .padding(.trailing, K.UI.Space.normal)
+                .padding(.top, K.UI.Space.normal)
             }
             Spacer()
         }

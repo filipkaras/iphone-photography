@@ -39,13 +39,13 @@ struct LessonItemView: View {
             Image("thumb-placeholder")
                 .resizable()
                 .frame(width: 100, height: 60)
-                .cornerRadius(5)
+                .cornerRadius(K.UI.Radius.normal)
             Text(lesson.name)
-                .padding(.leading, 8)
+                .padding(.leading, K.UI.Space.small)
                 .foregroundColor(.primary)
             Spacer()
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, K.UI.Space.xsmall)
     }
 }
 
