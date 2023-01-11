@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct LessonListView: View {
-    var lessons: [Lesson]
     
-    init(lessons: [Lesson]) {
-        self.lessons = lessons
-    }
+    @StateObject var vm = LessonListViewModel()
     
     var body: some View {
         NavigationView {
-            List(lessons) { lesson in
+            List(vm.lessons) { lesson in
                 NavigationLink {
                     LessonDetailView(lesson: lesson)
+                        .environmentObject(vm)
                 } label: {
                     LessonItemView(lesson: lesson)
                 }
@@ -33,13 +31,22 @@ struct LessonListView: View {
 }
 
 struct LessonItemView: View {
-    var lesson: Lesson
+    var lesson: LessonModel
     var body: some View {
         HStack {
-            Image("thumb-placeholder")
-                .resizable()
-                .frame(width: 100, height: 60)
-                .cornerRadius(K.UI.Radius.normal)
+            AsyncImage(
+                url: URL(string: lesson.thumbnail),
+                content: { image in
+                    image
+                      .resizable()
+                      .aspectRatio(contentMode: .fit)
+                },
+                placeholder: {
+                    Color.gray
+                }
+            )
+            .frame(width: 100, height: 60)
+            .cornerRadius(K.UI.Radius.normal)
             Text(lesson.name)
                 .padding(.leading, K.UI.Space.small)
                 .foregroundColor(.primary)
@@ -51,22 +58,7 @@ struct LessonItemView: View {
 
 struct LessonListView_Previews: PreviewProvider {
     static var previews: some View {
-        LessonListView(lessons: [
-            Lesson(
-                id: 950,
-                name: "The Key To Success In iPhone Photography",
-                description: "What’s the secret to taking truly incredible iPhone photos? Learning how to use your iPhone camera is very important, but there’s something even more fundamental to iPhone photography that will help you take the photos of your dreams! Watch this video to learn some unique photography techniques and to discover your own key to success in iPhone photography!",
-                thumbnail: "https://embed-ssl.wistia.com/deliveries/b57817b5b05c3e3129b7071eee83ecb7.jpg?image_crop_resized=1000x560",
-                video_url: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
-            ),
-            Lesson(
-                id: 950,
-                name: "The Key To Success In iPhone Photography",
-                description: "What’s the secret to taking truly incredible iPhone photos? Learning how to use your iPhone camera is very important, but there’s something even more fundamental to iPhone photography that will help you take the photos of your dreams! Watch this video to learn some unique photography techniques and to discover your own key to success in iPhone photography!",
-                thumbnail: "https://embed-ssl.wistia.com/deliveries/b57817b5b05c3e3129b7071eee83ecb7.jpg?image_crop_resized=1000x560",
-                video_url: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
-            )
-        ])
+        LessonListView()
             .preferredColorScheme(.dark)
     }
 }

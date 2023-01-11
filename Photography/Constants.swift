@@ -14,10 +14,10 @@ struct K {
             static let large: CGFloat = 24
             static let normal: CGFloat = 16
             static let small: CGFloat = 8
-            static let xsmall: CGFloat = 5
+            static let xsmall: CGFloat = 4
         }
         struct Radius {
-            static let normal: CGFloat = 5
+            static let normal: CGFloat = 8
         }
     }
     struct Api {

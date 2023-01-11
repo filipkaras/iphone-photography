@@ -6,19 +6,60 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct LessonDetailView: View {
-    var lesson: Lesson
+    
+    @Environment(\.isPresented) var isPresented
+    @EnvironmentObject var vm: LessonListViewModel
+    @State var videoLaunched: Bool = false
+    @State var lesson: LessonModel
+    let player: AVPlayer
+    
+    var nextLessonAvailable: Bool {
+        let index = vm.lessons.firstIndex(where: { $0.id == lesson.id })!
+        return index < vm.lessons.count - 1
+    }
+    
+    init(lesson: LessonModel) {
+        self.lesson = lesson
+        self.player = AVPlayer(url: URL(string: lesson.video_url)!)
+    }
+    
+    func switchToLextLesson() {
+        let index = vm.lessons.firstIndex(where: { $0.id == lesson.id })!
+        lesson = vm.lessons[index + 1]
+    }
     
     var body: some View {
         ScrollView {
             ZStack {
-                Image("thumb-placeholder")
-                    .resizable()
-                    .frame(height: 225)
-                    .clipped()
+                AsyncImage(
+                    url: URL(string: lesson.thumbnail),
+                    content: { image in
+                        image
+                            .resizable()
+                            .frame(height: 220)
+                            .clipped()
+                    },
+                    placeholder: {
+                        Color.gray
+                    }
+                )
                 Image(systemName: "play.fill")
                     .font(.system(size: 60))
+                    .onTapGesture {
+                        videoLaunched = true
+                        player.play()
+                    }
+                VideoPlayer(player: player)
+                    .frame(height: 220)
+                    .opacity(videoLaunched ? 1 : 0)
+                    .onChange(of: isPresented) { isPresented in
+                        if !isPresented {
+                            player.pause()
+                        }
+                    }
             }
             Group {
                 Text(lesson.name)
@@ -32,7 +73,7 @@ struct LessonDetailView: View {
             HStack {
                 Spacer()
                 Button {
-                    
+                    switchToLextLesson()
                 } label: {
                     Text("Next Lesson")
                     Image(systemName: "chevron.right")
@@ -40,6 +81,7 @@ struct LessonDetailView: View {
                 }
                 .padding(.trailing, K.UI.Space.normal)
                 .padding(.top, K.UI.Space.normal)
+                .opacity(nextLessonAvailable ? 1 : 0)
             }
             Spacer()
         }
@@ -58,7 +100,7 @@ struct LessonDetailView: View {
 
 struct LessonDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LessonDetailView(lesson: Lesson(
+        LessonDetailView(lesson: LessonModel(
             id: 950,
             name: "The Key To Success In iPhone Photography",
             description: "What’s the secret to taking truly incredible iPhone photos? Learning how to use your iPhone camera is very important, but there’s something even more fundamental to iPhone photography that will help you take the photos of your dreams! Watch this video to learn some unique photography techniques and to discover your own key to success in iPhone photography!",
