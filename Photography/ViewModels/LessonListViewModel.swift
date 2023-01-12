@@ -11,6 +11,7 @@ import Combine
 class LessonListViewModel: ObservableObject {
     
     @Published var lessons: [LessonModel] = []
+    @Published var selectedLesson: LessonModel?
     var cancellables = Set<AnyCancellable>()
     
     init() {

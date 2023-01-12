@@ -9,42 +9,26 @@ import Foundation
 
 protocol DownloadDelegate: AnyObject {
     
-    func downloadProgressUpdated(for progress: Double)
-    func downloadFromUrlString(_ urlString: String)
+    func downloadProgressUpdated(for progress: Float)
+    func downloadFinished()
 }
 
 final class Download {
   
-    weak var delegate: DownloadDelegate?
     var url: URL
     var downloadTask: URLSessionDownloadTask?
     
     init(url: URL) {
         self.url = url
     }
-    
-    var progress: Double = 0.0 {
-        didSet {
-            updateProgress()
-            if progress == 1 {
-                downloadTask = nil
-            }
-        }
-    }
-    
-    private func updateProgress() {
-        if downloadTask != nil {
-            delegate?.downloadProgressUpdated(for: progress)
-        }
-    }
 }
 
 class DataModel: NSObject, ObservableObject {
     
-    @Published var progress: Double = 0
     @Published var data: Data?
     var activeDownload: Download?
     var activeUrlString: String?
+    weak var delegate: DownloadDelegate?
     
     func fileNameForUrlString(_ urlString: String) -> String? {
         guard let url = URL(string: urlString) else { return nil }
@@ -61,22 +45,13 @@ class DataModel: NSObject, ObservableObject {
         guard let fileUrl = self.localFileUrlForUrlString(urlString) else { return false }
         return FileManager.default.fileExists(atPath: fileUrl.path)
     }
-}
-
-extension DataModel: DownloadDelegate {
-    
-    func downloadProgressUpdated(for progress: Double) {
-        DispatchQueue.main.async {
-            self.progress = progress
-        }
-    }
     
     func downloadFromUrlString(_ urlString: String) {
         guard let url = URL(string: urlString) else { return }
+        URLCache.shared.removeCachedResponse(for: URLRequest(url: url))
         self.activeDownload = Download(url: url)
         self.activeUrlString = urlString
         guard let activeDownload = self.activeDownload else { return }
-        activeDownload.delegate = self
         activeDownload.downloadTask = downloadsSession.downloadTask(with: url)
         activeDownload.downloadTask?.resume()
     }
@@ -116,6 +91,7 @@ extension DataModel: URLSessionDownloadDelegate {
                 self?.saveDataToFile()
                 self?.activeDownload = nil
                 self?.downloadsSession.invalidateAndCancel()
+                self?.delegate?.downloadFinished()
             }
         }
     }
@@ -125,10 +101,7 @@ extension DataModel: URLSessionDownloadDelegate {
                     didWriteData bytesWritten: Int64,
                     totalBytesWritten: Int64,
                     totalBytesExpectedToWrite: Int64) {
-        if let download = activeDownload {
-            download.progress = Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
-            print(download.progress)
-        }
+        self.delegate?.downloadProgressUpdated(for: Float(totalBytesWritten) / Float(totalBytesExpectedToWrite))
     }
   
     var downloadsSession: URLSession {

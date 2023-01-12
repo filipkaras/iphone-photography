@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC386D60297036F9000DB771 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = DC386D5F297036F9000DB771 /* SDWebImage */; };
 		DCA1A035296ED7C1005BEAD2 /* PhotographyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A034296ED7C1005BEAD2 /* PhotographyApp.swift */; };
 		DCA1A039296ED7C2005BEAD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCA1A038296ED7C2005BEAD2 /* Assets.xcassets */; };
 		DCA1A03D296ED7C2005BEAD2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCA1A03C296ED7C2005BEAD2 /* Preview Assets.xcassets */; };
@@ -15,12 +16,14 @@
 		DCA1A053296ED7C2005BEAD2 /* PhotographyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A052296ED7C2005BEAD2 /* PhotographyUITestsLaunchTests.swift */; };
 		DCA1A060296F24BC005BEAD2 /* LessonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A05F296F24BC005BEAD2 /* LessonListView.swift */; };
 		DCA1A062296F27BA005BEAD2 /* LessonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A061296F27BA005BEAD2 /* LessonModel.swift */; };
-		DCA1A064296F3836005BEAD2 /* LessonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A063296F3836005BEAD2 /* LessonDetailView.swift */; };
 		DCA1A066296F5FA1005BEAD2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A065296F5FA1005BEAD2 /* Constants.swift */; };
 		DCA1A068296F6101005BEAD2 /* LessonListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A067296F6101005BEAD2 /* LessonListViewModel.swift */; };
 		DCA1A06D296FF97E005BEAD2 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = DCA1A06C296FF97E005BEAD2 /* CachedAsyncImage */; };
 		DCA1A06F296FFD63005BEAD2 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A06E296FFD63005BEAD2 /* DownloadManager.swift */; };
 		DCA1A07329702D4C005BEAD2 /* URLSession+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A07229702D4C005BEAD2 /* URLSession+Cache.swift */; };
+		DCA1A07729703008005BEAD2 /* LessonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A07629703008005BEAD2 /* LessonDetailViewController.swift */; };
+		DCA1A07929703048005BEAD2 /* LessonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A07829703048005BEAD2 /* LessonDetailView.swift */; };
+		DCA1A07B297030E2005BEAD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCA1A07A297030E2005BEAD2 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,11 +56,13 @@
 		DCA1A052296ED7C2005BEAD2 /* PhotographyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotographyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DCA1A05F296F24BC005BEAD2 /* LessonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonListView.swift; sourceTree = "<group>"; };
 		DCA1A061296F27BA005BEAD2 /* LessonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonModel.swift; sourceTree = "<group>"; };
-		DCA1A063296F3836005BEAD2 /* LessonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailView.swift; sourceTree = "<group>"; };
 		DCA1A065296F5FA1005BEAD2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DCA1A067296F6101005BEAD2 /* LessonListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonListViewModel.swift; sourceTree = "<group>"; };
 		DCA1A06E296FFD63005BEAD2 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		DCA1A07229702D4C005BEAD2 /* URLSession+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Cache.swift"; sourceTree = "<group>"; };
+		DCA1A07629703008005BEAD2 /* LessonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailViewController.swift; sourceTree = "<group>"; };
+		DCA1A07829703048005BEAD2 /* LessonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailView.swift; sourceTree = "<group>"; };
+		DCA1A07A297030E2005BEAD2 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC386D60297036F9000DB771 /* SDWebImage in Frameworks */,
 				DCA1A06D296FF97E005BEAD2 /* CachedAsyncImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,6 +92,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC386D6529706AAF000DB771 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				DCA1A06E296FFD63005BEAD2 /* DownloadManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		DC386D6629706AB8000DB771 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DCA1A061296F27BA005BEAD2 /* LessonModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DC386D6729706AD3000DB771 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DCA1A07229702D4C005BEAD2 /* URLSession+Cache.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DC386D6829706ADD000DB771 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				DCA1A067296F6101005BEAD2 /* LessonListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		DC386D6929706AE6000DB771 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				DCA1A07629703008005BEAD2 /* LessonDetailViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DC386D6B29706B02000DB771 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DCA1A05F296F24BC005BEAD2 /* LessonListView.swift */,
+				DCA1A07829703048005BEAD2 /* LessonDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		DCA1A028296ED7C1005BEAD2 = {
 			isa = PBXGroup;
 			children = (
@@ -109,14 +164,15 @@
 		DCA1A033296ED7C1005BEAD2 /* Photography */ = {
 			isa = PBXGroup;
 			children = (
-				DCA1A06E296FFD63005BEAD2 /* DownloadManager.swift */,
-				DCA1A061296F27BA005BEAD2 /* LessonModel.swift */,
-				DCA1A067296F6101005BEAD2 /* LessonListViewModel.swift */,
-				DCA1A05F296F24BC005BEAD2 /* LessonListView.swift */,
-				DCA1A063296F3836005BEAD2 /* LessonDetailView.swift */,
+				DC386D6629706AB8000DB771 /* Models */,
+				DC386D6529706AAF000DB771 /* Managers */,
+				DC386D6729706AD3000DB771 /* Extensions */,
+				DC386D6829706ADD000DB771 /* ViewModels */,
+				DC386D6929706AE6000DB771 /* ViewControllers */,
+				DC386D6B29706B02000DB771 /* Views */,
 				DCA1A034296ED7C1005BEAD2 /* PhotographyApp.swift */,
 				DCA1A065296F5FA1005BEAD2 /* Constants.swift */,
-				DCA1A07229702D4C005BEAD2 /* URLSession+Cache.swift */,
+				DCA1A07A297030E2005BEAD2 /* Main.storyboard */,
 				DCA1A038296ED7C2005BEAD2 /* Assets.xcassets */,
 				DCA1A03A296ED7C2005BEAD2 /* Photography.entitlements */,
 				DCA1A03B296ED7C2005BEAD2 /* Preview Content */,
@@ -167,6 +223,7 @@
 			name = Photography;
 			packageProductDependencies = (
 				DCA1A06C296FF97E005BEAD2 /* CachedAsyncImage */,
+				DC386D5F297036F9000DB771 /* SDWebImage */,
 			);
 			productName = Photography;
 			productReference = DCA1A031296ED7C1005BEAD2 /* Photography.app */;
@@ -242,6 +299,7 @@
 			mainGroup = DCA1A028296ED7C1005BEAD2;
 			packageReferences = (
 				DCA1A06B296FF97E005BEAD2 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				DC386D5E297036F9000DB771 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = DCA1A032296ED7C1005BEAD2 /* Products */;
 			projectDirPath = "";
@@ -261,6 +319,7 @@
 			files = (
 				DCA1A03D296ED7C2005BEAD2 /* Preview Assets.xcassets in Resources */,
 				DCA1A039296ED7C2005BEAD2 /* Assets.xcassets in Resources */,
+				DCA1A07B297030E2005BEAD2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,12 +344,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCA1A07729703008005BEAD2 /* LessonDetailViewController.swift in Sources */,
 				DCA1A066296F5FA1005BEAD2 /* Constants.swift in Sources */,
 				DCA1A060296F24BC005BEAD2 /* LessonListView.swift in Sources */,
 				DCA1A035296ED7C1005BEAD2 /* PhotographyApp.swift in Sources */,
+				DCA1A07929703048005BEAD2 /* LessonDetailView.swift in Sources */,
 				DCA1A06F296FFD63005BEAD2 /* DownloadManager.swift in Sources */,
 				DCA1A062296F27BA005BEAD2 /* LessonModel.swift in Sources */,
-				DCA1A064296F3836005BEAD2 /* LessonDetailView.swift in Sources */,
 				DCA1A068296F6101005BEAD2 /* LessonListViewModel.swift in Sources */,
 				DCA1A07329702D4C005BEAD2 /* URLSession+Cache.swift in Sources */,
 			);
@@ -457,7 +517,7 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
@@ -495,7 +555,7 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
@@ -642,6 +702,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DC386D5E297036F9000DB771 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		DCA1A06B296FF97E005BEAD2 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
@@ -653,6 +721,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DC386D5F297036F9000DB771 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC386D5E297036F9000DB771 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		DCA1A06C296FF97E005BEAD2 /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DCA1A06B296FF97E005BEAD2 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;

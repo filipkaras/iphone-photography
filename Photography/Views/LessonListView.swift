@@ -11,13 +11,16 @@ import CachedAsyncImage
 struct LessonListView: View {
     
     @StateObject var vm = LessonListViewModel()
+    @StateObject var dataModel = DataModel()
     
     var body: some View {
         NavigationView {
             List(vm.lessons) { lesson in
                 NavigationLink {
-                    LessonDetailView(lesson: lesson)
-                        .environmentObject(vm)
+                    LessonDetailView(lesson: lesson, lessons: vm.lessons, dataModel: dataModel)
+                        .background(Color(.systemGray6))
+                        .edgesIgnoringSafeArea(.bottom)
+                        .navigationBarTitleDisplayMode(.inline)
                 } label: {
                     LessonItemView(lesson: lesson)
                 }
