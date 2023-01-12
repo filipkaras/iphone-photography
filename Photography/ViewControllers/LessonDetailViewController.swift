@@ -137,12 +137,12 @@ class LessonDetailViewController: UIViewController, DownloadDelegate {
         if UIDevice.current.orientation.isLandscape {
             playerVC.view.removeFromSuperview()
             playerVC.view.frame = parent!.view.frame
-            parent!.view.addSubview(avpc.view)
+            parent!.view.addSubview(playerVC.view)
             navigationController?.setNavigationBarHidden(true, animated: true)
         } else {
             playerVC.view.removeFromSuperview()
             playerVC.view.frame = videoView.frame
-            videoView.addSubview(avpc.view)
+            videoView.addSubview(playerVC.view)
             navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
