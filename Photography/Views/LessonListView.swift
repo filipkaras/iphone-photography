@@ -11,13 +11,13 @@ import CachedAsyncImage
 struct LessonListView: View {
     
     @StateObject var vm = LessonListViewModel(url: URL(string: K.Api.Url)!)
-    @StateObject var dataModel = DownloadManager()
+    @StateObject var downloadManager = DownloadManager()
     
     var body: some View {
         NavigationView {
             List(vm.lessons) { lesson in
                 NavigationLink {
-                    LessonDetailView(lesson: lesson, lessons: vm.lessons, dataModel: dataModel)
+                    LessonDetailView(lesson: lesson, lessons: vm.lessons, downloadManager: downloadManager)
                         .background(Color(.systemGray6))
                         .edgesIgnoringSafeArea(.bottom)
                         .navigationBarTitleDisplayMode(.inline)

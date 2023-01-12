@@ -21,6 +21,8 @@ extension URLSession {
                     throw error
                 }
 
+                // we have implemented caching to dataTaskPublisher
+                // when the netword call fails we will return cache (if available)
                 return Just(URLSession.DataTaskPublisher.Output(
                     data: cachedResponse.data,
                     response: cachedResponse.response

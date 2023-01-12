@@ -1,5 +1,5 @@
 //
-//  DataManager.swift
+//  DownloadManager.swift
 //  Photography
 //
 //  Created by Filip Karas on 12/01/2023.
@@ -7,18 +7,21 @@
 
 import Foundation
 
-protocol DataModelDelegate: AnyObject {
+protocol DownloadManagerDelegate: AnyObject {
     
     func downloadProgressUpdated(for progress: Float)
     func downloadFinished()
 }
 
 class DownloadManager: NSObject, ObservableObject {
+
+    // basic download manager to download large files from internet using URLSession
+    // after download, we are saving the file to the local document directory
     
     var data: Data?
     var downloadTask: URLSessionDownloadTask?
     var activeUrlString: String?
-    weak var delegate: DataModelDelegate?
+    weak var delegate: DownloadManagerDelegate?
     
     func fileNameForUrlString(_ urlString: String) -> String? {
         guard let url = URL(string: urlString) else { return nil }

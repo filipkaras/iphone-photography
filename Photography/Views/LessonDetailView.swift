@@ -11,14 +11,14 @@ struct LessonDetailView: UIViewControllerRepresentable {
   
     var lesson: LessonModel
     var lessons: [LessonModel]
-    var dataModel: DownloadManager
+    var downloadManager: DownloadManager
     
     func makeUIViewController(context: Context) -> LessonDetailViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let controller = storyboard.instantiateViewController(withIdentifier: "LessonDetail") as! LessonDetailViewController
         controller.lesson = lesson
         controller.lessons = lessons
-        controller.dataModel = dataModel
+        controller.downloadManager = downloadManager
         return controller
     }
 

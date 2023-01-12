@@ -9,7 +9,7 @@ import XCTest
 import Combine
 @testable import Photography
 
-final class PhotographyTests: XCTestCase, DataModelDelegate {
+final class PhotographyTests: XCTestCase, DownloadManagerDelegate {
     
     var cancellables = Set<AnyCancellable>()
     let urlString = "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
