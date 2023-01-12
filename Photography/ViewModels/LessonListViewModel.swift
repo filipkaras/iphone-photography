@@ -14,12 +14,11 @@ class LessonListViewModel: ObservableObject {
     @Published var selectedLesson: LessonModel?
     var cancellables = Set<AnyCancellable>()
     
-    init() {
-        getLessons()
+    init(url: URL) {
+        getLessons(url)
     }
     
-    func getLessons() {
-        let url = URL(string: K.Api.Url)!
+    func getLessons(_ url: URL) {
         URLSession.shared.dataTaskPublisher(for: url, cachedResponseOnError: true)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: DispatchQueue.main)
@@ -33,7 +32,7 @@ class LessonListViewModel: ObservableObject {
             }
             .decode(type: LessonsModel.self, decoder: JSONDecoder())
             .sink { completion in
-                print("COMPLETION: \(completion)")
+                
             } receiveValue: { [weak self] returnedLessons in
                 self?.lessons = returnedLessons.lessons
             }

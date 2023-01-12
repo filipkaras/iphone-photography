@@ -9,14 +9,15 @@ import UIKit
 import SDWebImage
 import AVKit
 
-class LessonDetailViewController: UIViewController, DownloadDelegate {
+class LessonDetailViewController: UIViewController, DataModelDelegate {
     
     var lesson: LessonModel!
     var lessons: [LessonModel] = []
-    var dataModel: DataModel!
+    var dataModel: DownloadManager!
     var player: AVPlayer?
     var playerVC = AVPlayerViewController()
     var downloadButton = UIBarButtonItem()
+    var landSpaceMode = false
     
     var nextLessonAvailable: Bool {
         guard let index = lessons.firstIndex(where: { $0.id == lesson.id }) else { return false }
@@ -89,9 +90,9 @@ class LessonDetailViewController: UIViewController, DownloadDelegate {
         descriptionLabel.text = lesson.description
         nextLessonButton.isHidden = !nextLessonAvailable
         
-        downloadView.isHidden = dataModel.activeDownload == nil
+        downloadView.isHidden = dataModel.downloadTask == nil
         
-        if dataModel.activeDownload == nil && !dataModel.localFileExistsForUrlString(lesson.video_url) {
+        if dataModel.downloadTask == nil && !dataModel.localFileExistsForUrlString(lesson.video_url) && !landSpaceMode {
             DispatchQueue.main.async {
                 self.navigationController?.navigationBar.topItem?.rightBarButtonItems = [self.downloadButton]
             }
@@ -112,7 +113,9 @@ class LessonDetailViewController: UIViewController, DownloadDelegate {
         playerVC.player = player!
         playerVC.view.frame = videoView.frame
         videoView.addSubview(playerVC.view)
-        player?.play()
+        DispatchQueue.main.async {
+            self.playerVC.player?.play()
+        }
     }
     
     func stop() {
@@ -123,6 +126,19 @@ class LessonDetailViewController: UIViewController, DownloadDelegate {
     
     @IBAction func switchToNextLesson() {
         if !nextLessonAvailable { return }
+        if dataModel.downloadTask != nil {
+            let alert = UIAlertController(title: "iPhone Photography", message: "You are currently downloading this video, jumping to the next one will cancel the download process. Do you want to proceed?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+                self.nextLesson()
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel))
+            present(alert, animated: true)
+        } else {
+            nextLesson()
+        }
+    }
+    
+    func nextLesson() {
         let index = lessons.firstIndex(where: { $0.id == lesson.id })!
         lesson = lessons[index + 1]
         updateUI()
@@ -139,11 +155,17 @@ class LessonDetailViewController: UIViewController, DownloadDelegate {
             playerVC.view.frame = parent!.view.frame
             parent!.view.addSubview(playerVC.view)
             navigationController?.setNavigationBarHidden(true, animated: true)
+            splitViewController?.presentsWithGesture = false
+            landSpaceMode = true
+            updateUI()
         } else {
             playerVC.view.removeFromSuperview()
             playerVC.view.frame = videoView.frame
             videoView.addSubview(playerVC.view)
             navigationController?.setNavigationBarHidden(false, animated: true)
+            splitViewController?.presentsWithGesture = true
+            landSpaceMode = false
+            updateUI()
         }
     }
 }

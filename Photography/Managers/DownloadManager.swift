@@ -7,28 +7,18 @@
 
 import Foundation
 
-protocol DownloadDelegate: AnyObject {
+protocol DataModelDelegate: AnyObject {
     
     func downloadProgressUpdated(for progress: Float)
     func downloadFinished()
 }
 
-final class Download {
-  
-    var url: URL
+class DownloadManager: NSObject, ObservableObject {
+    
+    var data: Data?
     var downloadTask: URLSessionDownloadTask?
-    
-    init(url: URL) {
-        self.url = url
-    }
-}
-
-class DataModel: NSObject, ObservableObject {
-    
-    @Published var data: Data?
-    var activeDownload: Download?
     var activeUrlString: String?
-    weak var delegate: DownloadDelegate?
+    weak var delegate: DataModelDelegate?
     
     func fileNameForUrlString(_ urlString: String) -> String? {
         guard let url = URL(string: urlString) else { return nil }
@@ -49,19 +39,15 @@ class DataModel: NSObject, ObservableObject {
     func downloadFromUrlString(_ urlString: String) {
         guard let url = URL(string: urlString) else { return }
         URLCache.shared.removeCachedResponse(for: URLRequest(url: url))
-        self.activeDownload = Download(url: url)
-        self.activeUrlString = urlString
-        guard let activeDownload = self.activeDownload else { return }
-        activeDownload.downloadTask = downloadsSession.downloadTask(with: url)
-        activeDownload.downloadTask?.resume()
+        activeUrlString = urlString
+        downloadTask = downloadsSession.downloadTask(with: url)
+        downloadTask?.resume()
     }
     
     func stopDownload() {
-        guard let activeDownload = self.activeDownload else { return }
-        activeDownload.downloadTask?.cancel()
-        activeDownload.downloadTask = nil
-        self.activeDownload = nil
-        self.downloadsSession.invalidateAndCancel()
+        downloadTask?.cancel()
+        downloadTask = nil
+        downloadsSession.invalidateAndCancel()
     }
     
     func saveDataToFile() {
@@ -80,7 +66,7 @@ class DataModel: NSObject, ObservableObject {
     }
 }
 
-extension DataModel: URLSessionDownloadDelegate {
+extension DownloadManager: URLSessionDownloadDelegate {
     
     func urlSession(_ session: URLSession,
                     downloadTask: URLSessionDownloadTask,
@@ -89,7 +75,7 @@ extension DataModel: URLSessionDownloadDelegate {
             DispatchQueue.main.async { [weak self] in
                 self?.data = data
                 self?.saveDataToFile()
-                self?.activeDownload = nil
+                self?.downloadTask = nil
                 self?.downloadsSession.invalidateAndCancel()
                 self?.delegate?.downloadFinished()
             }

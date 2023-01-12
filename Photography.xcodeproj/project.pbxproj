@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DC386D60297036F9000DB771 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = DC386D5F297036F9000DB771 /* SDWebImage */; };
+		DC386D6E29706E4C000DB771 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = DC386D6D29706E4C000DB771 /* SDWebImage */; };
+		DC386D7029706E4E000DB771 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = DC386D6F29706E4E000DB771 /* CachedAsyncImage */; };
 		DCA1A035296ED7C1005BEAD2 /* PhotographyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A034296ED7C1005BEAD2 /* PhotographyApp.swift */; };
 		DCA1A039296ED7C2005BEAD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCA1A038296ED7C2005BEAD2 /* Assets.xcassets */; };
 		DCA1A03D296ED7C2005BEAD2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCA1A03C296ED7C2005BEAD2 /* Preview Assets.xcassets */; };
@@ -79,6 +81,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC386D6E29706E4C000DB771 /* SDWebImage in Frameworks */,
+				DC386D7029706E4E000DB771 /* CachedAsyncImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +145,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		DC386D6C29706E4C000DB771 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DCA1A028296ED7C1005BEAD2 = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +159,7 @@
 				DCA1A045296ED7C2005BEAD2 /* PhotographyTests */,
 				DCA1A04F296ED7C2005BEAD2 /* PhotographyUITests */,
 				DCA1A032296ED7C1005BEAD2 /* Products */,
+				DC386D6C29706E4C000DB771 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -243,6 +255,10 @@
 				DCA1A044296ED7C2005BEAD2 /* PBXTargetDependency */,
 			);
 			name = PhotographyTests;
+			packageProductDependencies = (
+				DC386D6D29706E4C000DB771 /* SDWebImage */,
+				DC386D6F29706E4E000DB771 /* CachedAsyncImage */,
+			);
 			productName = PhotographyTests;
 			productReference = DCA1A042296ED7C2005BEAD2 /* PhotographyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -725,6 +741,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DC386D5E297036F9000DB771 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		DC386D6D29706E4C000DB771 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC386D5E297036F9000DB771 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		DC386D6F29706E4E000DB771 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DCA1A06B296FF97E005BEAD2 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
 		};
 		DCA1A06C296FF97E005BEAD2 /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -10,8 +10,8 @@ import CachedAsyncImage
 
 struct LessonListView: View {
     
-    @StateObject var vm = LessonListViewModel()
-    @StateObject var dataModel = DataModel()
+    @StateObject var vm = LessonListViewModel(url: URL(string: K.Api.Url)!)
+    @StateObject var dataModel = DownloadManager()
     
     var body: some View {
         NavigationView {
