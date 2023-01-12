@@ -14,21 +14,24 @@ struct LessonDetailView: View {
     @EnvironmentObject var vm: LessonListViewModel
     @State var videoLaunched: Bool = false
     @State var lesson: LessonModel
-    let player: AVPlayer
+    @State var player = AVPlayer()
+    @StateObject var dataModel = DataModel()
     
     var nextLessonAvailable: Bool {
-        let index = vm.lessons.firstIndex(where: { $0.id == lesson.id })!
+        guard let index = vm.lessons.firstIndex(where: { $0.id == lesson.id }) else { return false }
         return index < vm.lessons.count - 1
     }
     
     init(lesson: LessonModel) {
         self.lesson = lesson
-        self.player = AVPlayer(url: URL(string: lesson.video_url)!)
     }
     
     func switchToLextLesson() {
         let index = vm.lessons.firstIndex(where: { $0.id == lesson.id })!
         lesson = vm.lessons[index + 1]
+        videoLaunched = false
+        player.pause()
+        dataModel.stopDownload()
     }
     
     var body: some View {
@@ -49,6 +52,11 @@ struct LessonDetailView: View {
                 Image(systemName: "play.fill")
                     .font(.system(size: 60))
                     .onTapGesture {
+                        if dataModel.localFileExistsForUrlString(lesson.video_url) {
+                            self.player = AVPlayer(url: dataModel.localFileUrlForUrlString(lesson.video_url)!)
+                        } else {
+                            self.player = AVPlayer(url: URL(string: lesson.video_url)!)
+                        }
                         videoLaunched = true
                         player.play()
                     }
@@ -58,6 +66,7 @@ struct LessonDetailView: View {
                     .onChange(of: isPresented) { isPresented in
                         if !isPresented {
                             player.pause()
+                            dataModel.stopDownload()
                         }
                     }
             }
@@ -88,12 +97,54 @@ struct LessonDetailView: View {
         .background(Color(.systemGray6))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarButtons(dataModel: dataModel, lesson: lesson)
+        }
+    }
+}
+
+struct ToolbarButtons: View {
+    
+    @StateObject var dataModel: DataModel
+    @State var lesson: LessonModel
+    
+    var body: some View {
+        if dataModel.activeDownload != nil {
+            CircularProgressView(progress: dataModel.progress)
+                .opacity(dataModel.progress > 0 ? 1 : 0)
+                .frame(width: 24)
+        }
+        if dataModel.activeDownload == nil && !dataModel.localFileExistsForUrlString(lesson.video_url) {
             Button {
-                
+                dataModel.downloadFromUrlString(lesson.video_url)
             } label: {
                 Image(systemName: "icloud.and.arrow.down")
                 Text("Download")
             }
+        }
+    }
+}
+
+struct CircularProgressView: View {
+    let progress: Double
+    
+    var body: some View {
+        ZStack {
+            Circle()
+                .stroke(
+                    Color.gray.opacity(0.5),
+                    lineWidth: 2
+                )
+            Circle()
+                .trim(from: 0, to: progress)
+                .stroke(
+                    Color(.systemBlue),
+                    style: StrokeStyle(
+                        lineWidth: 2,
+                        lineCap: .round
+                    )
+                )
+                .rotationEffect(.degrees(-90))
+                .animation(.easeOut, value: progress)
         }
     }
 }
@@ -107,6 +158,7 @@ struct LessonDetailView_Previews: PreviewProvider {
             thumbnail: "https://embed-ssl.wistia.com/deliveries/b57817b5b05c3e3129b7071eee83ecb7.jpg?image_crop_resized=1000x560",
             video_url: "https://embed-ssl.wistia.com/deliveries/cc8402e8c16cc8f36d3f63bd29eb82f99f4b5f88/accudvh5jy.mp4"
         ))
+        .environmentObject(LessonListViewModel())
             .preferredColorScheme(.dark)
     }
 }

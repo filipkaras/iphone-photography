@@ -18,10 +18,8 @@ class LessonListViewModel: ObservableObject {
     }
     
     func getLessons() {
-        
-        guard let url = URL(string: K.Api.Url) else { return }
-        
-        URLSession.shared.dataTaskPublisher(for: url)
+        let url = URL(string: K.Api.Url)!
+        URLSession.shared.dataTaskPublisher(for: url, cachedResponseOnError: true)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: DispatchQueue.main)
             .tryMap { (data, response) -> Data in
@@ -39,6 +37,5 @@ class LessonListViewModel: ObservableObject {
                 self?.lessons = returnedLessons.lessons
             }
             .store(in: &cancellables)
-
     }
 }

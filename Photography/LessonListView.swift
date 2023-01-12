@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct LessonListView: View {
     
@@ -34,7 +35,7 @@ struct LessonItemView: View {
     var lesson: LessonModel
     var body: some View {
         HStack {
-            AsyncImage(
+            CachedAsyncImage(
                 url: URL(string: lesson.thumbnail),
                 content: { image in
                     image

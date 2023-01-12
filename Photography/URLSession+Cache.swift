@@ -1,0 +1,31 @@
+//
+//  URLSession+Cache.swift
+//  Photography
+//
+//  Created by Filip Karas on 12/01/2023.
+//
+
+import Foundation
+import Combine
+
+extension URLSession {
+    
+    func dataTaskPublisher(for url: URL, cachedResponseOnError: Bool) -> AnyPublisher<URLSession.DataTaskPublisher.Output, Error> {
+
+        return self.dataTaskPublisher(for: url)
+            .tryCatch { [weak self] (error) -> AnyPublisher<URLSession.DataTaskPublisher.Output, Never> in
+                guard cachedResponseOnError,
+                    let urlCache = self?.configuration.urlCache,
+                    let cachedResponse = urlCache.cachedResponse(for: URLRequest(url: url))
+                else {
+                    throw error
+                }
+
+                return Just(URLSession.DataTaskPublisher.Output(
+                    data: cachedResponse.data,
+                    response: cachedResponse.response
+                )).eraseToAnyPublisher()
+                
+        }.eraseToAnyPublisher()
+    }
+}
